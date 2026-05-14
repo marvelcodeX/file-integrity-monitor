@@ -98,3 +98,18 @@ file-integrity-monitor/
 - Log lines include an HMAC-SHA256 signature generated from a per-session key. Any post-hoc edits to `fim.log` will produce signature mismatches.
 - The baseline DB (`baseline.db`) should be stored on a separate, read-only volume in production deployments for stronger tamper resistance.
 - This tool is for **detection**, not **prevention**. Pair it with proper access controls.
+
+---
+
+## Demo Images
+
+![File Integrity Monitor](demo_images/FIM_1.png)
+
+
+![File Integrity Monitor](demo_images/FIM_2.png)
+
+
+![File Integrity Monitor](demo_images/FIM_3.png)
+
+
+![File Integrity Monitor](demo_images/FIM_4.png)
