@@ -131,7 +131,7 @@ file-integrity-monitor/
 |------------|------------------|
 | ![](demo_images/FIM_1.png) | ![](demo_images/FIM_2.png) |
 
-| File Change Detection | Alert Feed |
+| File Change Detection | Log File |
 |----------------------|-------------|
 | ![](demo_images/FIM_3.png) | ![](demo_images/FIM_4.png) |
 
