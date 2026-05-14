@@ -2,6 +2,8 @@
 
 A desktop cybersecurity tool that watches files for unauthorized changes using SHA-256 hashing and real-time filesystem monitoring.
 
+Built with Python, Watchdog, SQLite, and CustomTkinter.
+
 ---
 
 ## Features
@@ -14,52 +16,73 @@ A desktop cybersecurity tool that watches files for unauthorized changes using S
 
 ---
 
-## Quick Start
+# 🚀 Quick Start
 
-### 1. Install dependencies
+## 1. Clone the repository
+
+```bash
+git clone https://github.com/your-username/file-integrity-monitor.git
+cd file-integrity-monitor
+```
+
+## 2. Create virtual environment
+
+```bash
+python3 -m venv venv
+source venv/bin/activate
+```
+
+## 3. Install dependencies
 
 ```bash
 pip install -r requirements.txt
 ```
 
-### 2. Run the app
+## 4. Run the application
 
 ```bash
 python main.py
 ```
 
-### 3. Usage workflow
+---
 
-1. Click **Browse Folder** and select a directory to protect.
-2. Click **Create Baseline** — the app hashes every file and saves the snapshot.
-3. Click **Start Monitoring** — watchdog begins watching in real time.
-4. Any file change triggers a **color-coded alert** in the dashboard.
-5. Click **Stop Monitoring** when done.
+# 🖥️ Usage Workflow
+
+1. Click **Browse Folder**
+2. Select a directory to protect
+3. Click **Create Baseline**
+4. Start monitoring with **Start Monitoring**
+5. Modify/create/delete files inside the folder
+6. Observe real-time alerts in the dashboard
+7. Click **Stop Monitoring** when finished
 
 ---
 
-## Project Structure
+# 📂 Project Structure
 
-```
+```text
 file-integrity-monitor/
 │
-├── main.py                  # Entry point
+├── main.py                  # Application entry point
+│
 ├── core/
-│   ├── hasher.py            # SHA-256 hashing (files & directories)
-│   ├── monitor.py           # Watchdog event handler + FileMonitor class
-│   ├── database.py          # SQLite baseline CRUD
-│   └── logger.py            # HMAC-signed tamper-evident log writer
+│   ├── hasher.py            # SHA-256 hashing utilities
+│   ├── monitor.py           # Watchdog observer + event handler
+│   ├── database.py          # SQLite baseline management
+│   └── logger.py            # HMAC-signed tamper-evident logs
 │
 ├── ui/
-│   ├── app.py               # Main CTk window — wires settings ↔ dashboard
-│   ├── dashboard.py         # Live alert feed + status panel
-│   └── settings.py          # Sidebar: folder picker, baseline controls, toggle
+│   ├── app.py               # Main CustomTkinter application
+│   ├── dashboard.py         # Live monitoring dashboard
+│   └── settings.py          # Folder selection + controls
 │
 ├── logs/
-│   └── fim.log              # Auto-generated — DO NOT edit manually
+│   └── fim.log              # Auto-generated runtime logs
 │
 ├── data/
-│   └── baseline.db          # SQLite database — auto-generated
+│   └── baseline.db          # Auto-generated SQLite database
+│
+├── demo_images/             # README screenshots
 │
 ├── requirements.txt
 ├── .gitignore
@@ -68,48 +91,68 @@ file-integrity-monitor/
 
 ---
 
-## Alert Types
+# 🚨 Alert Types
 
-| Icon | Type | Meaning |
-|------|------|---------|
-| ✏️ | MODIFIED | File hash changed vs baseline |
-| ➕ | CREATED | New file not present at baseline time |
-| 🗑️ | DELETED | Baseline file was deleted |
-| 📦 | MOVED | Baseline file was renamed or moved |
-| ⚠️ | UNREADABLE | File exists but cannot be read |
+| Icon | Alert Type | Description |
+|------|-------------|-------------|
+| ✏️ | MODIFIED | File hash differs from baseline |
+| ➕ | CREATED | New file detected |
+| 🗑️ | DELETED | Baseline file removed |
+| 📦 | MOVED | File renamed or moved |
+| ⚠️ | UNREADABLE | File exists but cannot be accessed |
 
 ---
 
-## Tech Stack
+# 🛠️ Tech Stack
 
-| Layer | Tool |
-|-------|------|
+| Layer | Technology |
+|-------|-------------|
 | Language | Python 3.11+ |
-| UI | CustomTkinter |
-| Hashing | hashlib (SHA-256, built-in) |
-| File watching | watchdog |
-| Database | sqlite3 (built-in) |
-| Logging | logging + HMAC signing |
+| UI Framework | CustomTkinter |
+| File Monitoring | watchdog |
+| Hashing | hashlib (SHA-256) |
+| Database | SQLite3 |
+| Logging | Python logging + HMAC |
 
 ---
 
-## Security Notes
+# 🔐 Security Notes
 
-- Log lines include an HMAC-SHA256 signature generated from a per-session key. Any post-hoc edits to `fim.log` will produce signature mismatches.
-- The baseline DB (`baseline.db`) should be stored on a separate, read-only volume in production deployments for stronger tamper resistance.
-- This tool is for **detection**, not **prevention**. Pair it with proper access controls.
+- Each log line contains an **HMAC-SHA256 signature** generated using a session key.
+- Any manual modification to log entries can be detected through signature mismatch.
+- Baseline hashes are stored in SQLite for efficient verification.
+- Designed for **intrusion detection**, not prevention.
 
 ---
 
-## Demo Images
+# 📸 Demo Images
 
-![File Integrity Monitor](demo_images/FIM_1.png)
+| Dashboard | Monitoring Active |
+|------------|------------------|
+| ![](demo_images/FIM_1.png) | ![](demo_images/FIM_2.png) |
 
+| File Change Detection | Alert Feed |
+|----------------------|-------------|
+| ![](demo_images/FIM_3.png) | ![](demo_images/FIM_4.png) |
 
-![File Integrity Monitor](demo_images/FIM_2.png)
+---
 
+# ⚠️ macOS Note
 
-![File Integrity Monitor](demo_images/FIM_3.png)
+If you encounter:
 
+```bash
+ModuleNotFoundError: No module named '_tkinter'
+```
 
-![File Integrity Monitor](demo_images/FIM_4.png)
+Install Python from the official Python website instead of Homebrew:
+
+https://www.python.org/downloads/macos/
+
+Then recreate the virtual environment.
+
+---
+
+# 📄 License
+
+This project is intended for educational and cybersecurity learning purposes.
